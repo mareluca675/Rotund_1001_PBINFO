@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+
+std::ifstream fin("rotund.in");
+std::ofstream fout("rotund.out");
+
+bool rotund(std::string var, int k = 1){
+    while(k <= var.length() / 2){
+        bool ok = true;
+        for(int i = 0; i < var.length() - k; ++ i){
+            if(var[i] != var[i + k]){
+                ok = false;
+                break;
+            }
+        }
+        if(ok)
+            return true;
+        ++ k;
+    }
+    
+    return false;
+}
+
+int main()
+{
+    int n;
+    fin >> n;
+    
+    std::vector<int> A, B;
+    A.resize(n);
+    
+    for(auto& num : A)
+        fin >> num;
+    
+    int rotunde = 0;
+    for(int i = 0; i < n; ++ i)
+        if(rotund(std::to_string(A[i])) == true)
+            B.push_back(A[i]), ++ rotunde;
+        
+    fout << rotunde << '\n';
+    for(auto& num : B)
+        fout << num << ' ';
+    return 0;
+}
